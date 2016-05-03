@@ -21,7 +21,7 @@ Options:
 -v, --verbose                                                          [count]
 -r, --git-repository  Repository to upload to                       [required]
 --firefox-home        Home directory for Firefox
-                                    [default: "/home/hekar/.mozilla/firefox"]
+                                    [default: "~/.mozilla/firefox"]
 --profile-ini         Name of profiles.ini file      [default: "profiles.ini"]
 --profile             Name of profile (ie. Profile0, Profile1, etc)
                                                         [default: "Profile0"]
