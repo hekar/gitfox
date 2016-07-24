@@ -1,6 +1,8 @@
 'use strict';
 
-/*global beforeEach,describe,it*/
+/*eslint-disable */
+
+/*global describe,it*/
 const src = '../../../lib';
 const co = require('co');
 const rewire = require('rewire');

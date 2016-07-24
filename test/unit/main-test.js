@@ -5,7 +5,6 @@ const src = '../../lib';
 const co = require('co');
 const rewire = require('rewire');
 const index = rewire(`${src}/index.js`);
-const sinon = require('sinon');
 const chai = require('chai');
 
 describe('#main(...)', () => {

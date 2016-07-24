@@ -11,7 +11,7 @@ const chai = require('chai');
 
 describe('markdown', () => {
   describe('#write(...)', () => {
-    it('should write tree', co.wrap(function*(){
+    it('should write tree', co.wrap(function*() {
       const actual = markdown.write(
         require('../resources/bookmarks-tree.json'));
 
