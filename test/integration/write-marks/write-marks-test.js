@@ -22,7 +22,7 @@ writeMarks.__set__('createOrGetGitFolder', () => {
 
 describe('write-marks', () => {
   describe('#writeTree(...)', () => {
-    it.only('should write tree', co.wrap(function*(){
+    it('should write tree', co.wrap(function*(){
       const actual = yield writeMarks.toMarkdown(require('../read-marks/marks-tree.json'));
 
       const expected = require('write-marks.md');

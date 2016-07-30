@@ -4,20 +4,22 @@
 const src = '../../../lib';
 const co = require('co');
 const rewire = require('rewire');
-const marks = rewire(`${src}/marks/read`);
+const findByTitle = rewire(`${src}/places/tree-by-root`);
 const chai = require('chai');
 
-marks.__set__('read', function*() {
+findByTitle.__set__('findByRoot', function*() {
   return require('../resources/bookmarks-flat.json');
 });
 
-describe('read-marks', () => {
-  describe('#readTree(...)', () => {
+describe('places', () => {
+  describe('#findByTitleRecursive(...)', () => {
     it('should return tree', co.wrap(function*() {
-      const actual = yield marks.readTree('');
+      const actual = yield findByTitle('');
       const expected = require('../resources/bookmarks-tree.json');
       chai.expect(actual)
         .to.deep.equal(expected);
     }));
+
+    // TODO: add failing test cases
   });
 });
