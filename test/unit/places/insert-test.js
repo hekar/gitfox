@@ -3,6 +3,7 @@
 /*global describe,it*/
 const src = '../../../lib';
 const co = require('co');
+const _ = require('lodash');
 const rewire = require('rewire');
 const chai = require('chai');
 const insert = rewire(`${src}/places/insert`);
@@ -10,7 +11,10 @@ const insert = rewire(`${src}/places/insert`);
 insert.__set__('sqlite3', {
   Database: function() {
     return {
-      all: function() {
+      all: function(query, params, done) {
+        const callback = _.isFunction(done) ? done : params;
+        console.log(params);
+        callback(null, []);
       }
     };
   }
