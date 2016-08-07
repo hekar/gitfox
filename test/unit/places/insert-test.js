@@ -1,25 +1,13 @@
 'use strict';
 
-/*global describe,it*/
+/*global describe,it,beforeEach*/
 const src = '../../../lib';
 const co = require('co');
 const _ = require('lodash');
 const rewire = require('rewire');
 const sinon = require('sinon');
+const chai = require('chai');
 const insert = rewire(`${src}/places/insert`);
-
-insert.__set__('sqlite3', {
-  Database: function() {
-    return {
-      all: function(query, params, done) {
-        const callback = _.isFunction(done) ? done : params;
-        callback(null, [{
-          id: 0
-        }]);
-      }
-    };
-  }
-});
 
 insert.__set__('findFile', function *() {
   return '';
@@ -41,9 +29,31 @@ function filterTree(node, predicate) {
 describe('places', () => {
   const cn = {};
   describe('#insert(...)', () => {
+    let insertSpy;
+    beforeEach(() => {
+      insertSpy = sinon.spy();
+      insert.__set__('Db', function() {
+        return {
+          findOne: function*(query, params) {
+            return _.assign({}, params, {
+              fk: params.placeId
+            });
+          },
+          insert: function*(query, params) {
+            console.log(query, params);
+            insertSpy(query, params);
+          },
+          lastRowId: function*() {
+            return 2;
+          }
+        };
+      });
+    });
+
     it.only('should correctly traverse tree', co.wrap(function*() {
-      const localTree = require('../resources/bookmarks-tree.json');
-      //
+      const tree = require('../resources/bookmarks-tree.json');
+      const localTree = _.cloneDeep(tree);
+
       const excludeIds = [470, 710, 711, 712, 713, 714];
       const copied = [];
       filterTree(localTree, (node) => {
@@ -54,10 +64,11 @@ describe('places', () => {
         return include;
       });
 
-      const remoteTree = require('../resources/bookmarks-tree.json');
+      const remoteTree = _.cloneDeep(tree);
       yield insert(cn, remoteTree, copied);
 
-
+      chai.expect(excludeIds.length).to.be.equal(insertSpy.callCount);
+      chai.assert(insertSpy.called);
     }));
   });
 });
