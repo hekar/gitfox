@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hekar/gitfox.svg?branch=master)](https://travis-ci.org/hekar/gitfox)
+
 # gitfox
 
 Write your bookmarks from Firefox to a Git repository
