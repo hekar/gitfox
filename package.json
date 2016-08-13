@@ -3,6 +3,10 @@
   "version": "0.2.0",
   "description": "Push and pull bookmarks from Firefox to git repository",
   "main": "lib/index.js",
+  "preferGlobal": "true",
+  "bin": {
+    "gitfox": "lib/index.js"
+  },
   "scripts": {
     "lint": "eslint .",
     "integration": "mocha test/integration/**/*-test.js --",
