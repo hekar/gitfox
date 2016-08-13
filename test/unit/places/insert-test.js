@@ -40,7 +40,6 @@ describe('places', () => {
             });
           },
           insert: function*(query, params) {
-            console.log(query, params);
             insertSpy(query, params);
           },
           lastRowId: function*() {
@@ -50,7 +49,7 @@ describe('places', () => {
       });
     });
 
-    it.only('should correctly traverse tree', co.wrap(function*() {
+    it('should correctly traverse tree', co.wrap(function*() {
       const tree = require('../resources/bookmarks-tree.json');
       const localTree = _.cloneDeep(tree);
 
@@ -67,8 +66,10 @@ describe('places', () => {
       const remoteTree = _.cloneDeep(tree);
       yield insert(cn, remoteTree, copied);
 
-      chai.expect(excludeIds.length).to.be.equal(insertSpy.callCount);
       chai.assert(insertSpy.called);
+      // insert is called once for places and once for bookmarks
+      chai.expect(excludeIds.length * 2)
+        .to.be.equal(insertSpy.callCount);
     }));
   });
 });

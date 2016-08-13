@@ -72,7 +72,8 @@ describe('merge', () => {
               children: [{
                 id: 6,
                 children: [{
-                  id: 7
+                  id: 7,
+                  children: []
                 }]
               }]
             }]
