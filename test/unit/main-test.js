@@ -22,7 +22,6 @@ describe('#main(...)', () => {
     index.__set__('push', commandStub);
     index.__set__('pull', commandStub);
     index.__set__('profiles', commandStub);
-    index.__set__('status', commandStub);
   });
 
   describe('flags', () => {
