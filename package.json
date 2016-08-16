@@ -9,8 +9,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "integration": "mocha $(find test/integration -path '*-test.js')",
-    "test": "mocha $(find test/unit -path '*-test.js')"
+    "integration": "istanbul cover _mocha $(find test/integration -path '*-test.js')",
+    "test": "istanbul cover _mocha $(find test/unit -path '*-test.js')"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^2.9.0",
+    "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
     "rewire": "^2.5.2",
     "sinon": "^1.17.4",
