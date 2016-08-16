@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "integration": "mocha test/integration/**/*-test.js --",
+    "integration": "mocha $(find test/integration -path '*-test.js')",
     "test": "mocha $(find test/unit -path '*-test.js')"
   },
   "repository": {
